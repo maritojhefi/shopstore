@@ -66,9 +66,9 @@ globales({{$cantidad}})
               {{$producto->precio}}
           </td>
           <td>
-            @if ($producto->categoria!=null)
-            {{$producto->categoria->nombre}}
-            @endif
+        
+            {{$producto->categories}}
+           
             
         </td>
         

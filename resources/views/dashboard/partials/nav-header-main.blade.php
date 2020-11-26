@@ -24,7 +24,7 @@
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
           <label class="dropdown-item"><i class="material-icons text-dark">face</i></label>
-          <a class="dropdown-item" href=""><i class="material-icons text-dark">web</i>Ir a Inicio </a>
+          <a class="dropdown-item" href="{{route('home')}}"><i class="material-icons text-dark">web</i>Ir a Inicio </a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{{ route('logout') }}"
             onclick="event.preventDefault();

@@ -8,6 +8,7 @@ use App\Categoria;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreProduct;
 use App\Http\Controllers\Controller;
+use App\ProductImage;
 
 class ProductController extends Controller
 {
@@ -75,6 +76,7 @@ class ProductController extends Controller
      */
     public function edit(Product $producto)
     {
+        
         $listCategorias=Categoria::pluck('id','nombre');
        
 
@@ -90,10 +92,34 @@ class ProductController extends Controller
      */
     public function update(StoreProduct $request, Product $product)
     {
+        
         $product->update($request->validated());
         return back()->with('status','Producto Actualizado!');
     }
+    public function image(Request $request, Product $producto)
+    {
+       
+       $request->validate([
+        'image' => 'required|mimes:jpeg,bmp,png|max:10240'
+       ]);
+       $filename= time().".".$request->image->extension();
+       $request->image->move(public_path('images'),$filename);
 
+       ProductImage::create(['image'=>$filename, 'product_id'=>$producto->id]);
+       return back()->with('status','Imagen cargada con exito!');
+    }
+
+    public function imageDownload(ProductImage $image){
+       
+        $pathImage=public_path('images/').$image->image;
+        return response()->download($pathImage);
+    }
+    public function imagedelete(ProductImage $image){
+       $image->delete();
+        $pathImage=public_path('images/').$image->image;
+        unlink($pathImage);
+        return back()->with('status','imagen '.$image->id.' eliminada');
+    }
     /**
      * Remove the specified resource from storage.
      *
