@@ -8,13 +8,51 @@
 
         <!-- Fonts -->
     <link href="{{asset('css/shop-homepage.css')}}" rel="stylesheet">
-
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
     <link href="{{asset('templatemain/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
 
         <!-- Styles -->
         
     </head>
+    <style>
+      #form {
+  width: 250px;
+  margin: 0 auto;
+  height: 50px;
+}
+
+#form p {
+  text-align: center;
+}
+
+#form label {
+  font-size: 30px;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+label {
+  color: grey;
+}
+
+.clasificacion {
+  direction: rtl;
+  unicode-bidi: bidi-override;
+}
+
+label:hover,
+label:hover ~ label {
+  color: orange;
+}
+
+input[type="radio"]:checked ~ label {
+  color: orange;
+}
+    </style>
     <body>
        <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -38,7 +76,10 @@
           
           @auth
           <li class="nav-item">
-          <a class="nav-link" href="{{route('cat.index')}}">Ir al Panel</a>
+          <label class="nav-link" href="">Bienvenido {{auth()->user()->name}}</label>
+            </li>
+          <li class="nav-item">
+          <a class="nav-link" href="{{route('producto.index')}}">Ir al Panel</a>
           </li>
           @endauth
           
@@ -125,6 +166,7 @@
               </div>
 
 
+
            
               
              
@@ -135,25 +177,106 @@
                 <h5>{{$item->precio}} $us</h5>
               <p class="card-text">{{$item->detalle}}</p>
               </div>
+              <div class="row">
+                <div class="ml-3 col-4">
+                  <a href="" class="btn-block  btn btn-dark btn-sm mt-2 btn-round" data-toggle="modal" data-target="#ModalComentario"><i class="fa fa-comment"></i></a>
+            
+                </div>
+            <div class="col-2"></div>
+                <div class="col-4">
+                  
+                  <button  class="btn-block  btn btn-info btn-sm mt-2 " data-toggle="modal" data-target="#ModalVenta"><i class="fa fa-shopping-cart"></i></button>
+                </form>
+                </div>
+               
+              </div>
               <div class="card-footer">
                 <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
               </div>
             </div>
+           
+            
+            <!-- Modal Comentario -->
+            <div class="modal fade" id="ModalComentario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Envie comentarios y sugerencias</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <textarea name="comentario" id="comentario" rows="10" class="form-control"></textarea>
+                  </div>
+                  <div class="modal-footer">
+                    
+                    <button type="button" class="btn btn-sm btn-outline-success">Enviar Comentarios</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary " data-dismiss="modal">Cerrar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+             <!-- Modal Venta-->
+             <div class="modal fade" id="ModalVenta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Comprando Producto</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                   Detalle del producto
+                  </div>
+                  <div class="modal-footer">
+                   
+                    <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#valoracion"  data-dismiss="modal">Confirmar Compra</button>
+                    <button type="button" class="btn btn-sm btn-outline-danger " data-dismiss="modal">Cancelar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+<!-- Modal Valoracion -->
+<div class="modal fade" id="valoracion" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Valora tu experiencia</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="clasificacion">
+          <input id="radio1" type="radio" name="estrellas" value="5"><!--
+          --><label for="radio1">★</label><!--
+          --><input id="radio2" type="radio" name="estrellas" value="4"><!--
+          --><label for="radio2">★</label><!--
+          --><input id="radio3" type="radio" name="estrellas" value="3"><!--
+          --><label for="radio3">★</label><!--
+          --><input id="radio4" type="radio" name="estrellas" value="2"><!--
+          --><label for="radio4">★</label><!--
+          --><input id="radio5" type="radio" name="estrellas" value="1"><!--
+          --><label for="radio5">★</label>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Enviar Valoracion</button>
+      </div>
+    </div>
+  </div>
+</div>
           </div>
           @endforeach
-          
-
         
 
-          
-
-        
-
-        
-
-        
-
+ 
         </div>
+        {{$productos->links()}}
         <!-- /.row -->
 
       </div>

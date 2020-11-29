@@ -23,7 +23,7 @@
             </p>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-          <label class="dropdown-item"><i class="material-icons text-dark">face</i></label>
+          <label class="dropdown-item"><i class="material-icons text-dark">face</i>{{auth()->user()->name}}</label>
           <a class="dropdown-item" href="{{route('home')}}"><i class="material-icons text-dark">web</i>Ir a Inicio </a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{{ route('logout') }}"

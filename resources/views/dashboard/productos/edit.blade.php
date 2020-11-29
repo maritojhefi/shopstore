@@ -3,7 +3,7 @@
 
 @include('dashboard.partials.validation-error')
 <div class="card">
-  <div class="card-header card-header-warning">
+  <div class="card-header card-header-info">
     <h4 class="card-title">
       Registro: {{$producto->nombre}}
     </h4>
@@ -24,7 +24,7 @@
 
     
     
-      <input type="submit" class="btn btn-primary btn-round " value="SUBIR IMAGEN">
+      <input type="submit" class="btn btn-success btn-round " value="SUBIR IMAGEN">
 
     
   
@@ -43,9 +43,9 @@
 
 
 <div class="card">
-  <div class="card-header card-header-primary">
+  <div class="card-header card-header-info">
       <h4 class="card-title">
-       Lista de imagenes cargadas
+       Imagenes del Producto
       </h4>
      
   </div>

@@ -17,14 +17,31 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function __construct()
     {
-        
-     
-        $productos=Product::orderBy('id','desc')->paginate(8);
+        $this->middleware('auth');
+    }
+    public function index(Request $request)
+    {
+        $listCategorias=Categoria::pluck('id','nombre');
+   
+        $productos=Product::with('categoria')->orderBy('id','desc');
+        if($request->has('search')){
+            $productos=$productos
+            ->where('nombre','like','%'.request('search').'%');
+            //->orWhere('category_id','like','%'.request('search').'%');
+    
+        }
+        if($request->has('categorysearch')){
+            $productos=$productos
+           
+            ->where('category_id','like','%'.request('categorysearch').'%');
+    
+        }
+       $productos=$productos->paginate(8);
         $cantidad=$productos->total();
         
-         return view('dashboard.productos.index',['productos'=>$productos,'cantidad'=>$cantidad]);
+         return view('dashboard.productos.index',['productos'=>$productos,'cantidad'=>$cantidad,'listCategorias'=>$listCategorias]);
     }
 
    
@@ -37,6 +54,7 @@ class ProductController extends Controller
     public function create()
     {
         $listCategorias=Categoria::pluck('id','nombre');
+       
         $listUsers=User::pluck('id','name');
 
          return view("dashboard.productos.create",['producto'=>new Product(),'listCategorias'=>$listCategorias,'listUsers'=>$listUsers]);

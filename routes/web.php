@@ -21,7 +21,7 @@ Route::get('/home', 'LandingPageController@index')->name('home');
 Route::get('/indexPersonalizado/{categoria}', 'LandingPageController@indexPersonalizado')->name('indexPersonalizado');
 Route::resource('dashboard/producto', 'dashboard\ProductController');
 Route::resource('dashboard/cat', 'dashboard\CategoriaController');
-
+Route::get('dashboard/main', 'MainController@index')->name('main.index');
 Route::resource('dashboard/user', 'dashboard\UserController');
 
 //imagenes rutas
