@@ -7,16 +7,24 @@
   <div class="card ">
   <div class="card-header card-header-warning">
     <h4 class="card-title">
-      Registros
-
-globales({{$cantidad}})
+    @if (auth()->user()->rol_id==1)
+    Productos tuyos
+    @else
+    Todos los productos
+    @endif
+     
 
     </h4>
     <div class="card-category">
-      Aqui encontraras todos los registros</div>
+      Listado de los productos</div>
   </div>
   <div class="ml-1 form-inline ">
-    <a class="btn btn-success btn-sm mt-1 mb-3 ml-3  btn-round" href="{{route('producto.create')}}"><i class="fa fa-plus"></i> Registrar</a><div class="btn-sm mt-3 mb-3 ml-3">{{$productos->appends(['search'=>request('search')])->links()}}</div>
+    @if (auth()->user()->rol_id==1)
+    <a class="btn btn-success btn-sm mt-1 mb-3 ml-3  btn-round" href="{{route('producto.create')}}"><i class="fa fa-plus"></i> Registrar</a>
+
+    @endif
+    
+    <div class="btn-sm mt-3 mb-3 ml-3">{{$productos->appends(['search'=>request('search')])->links()}}</div>
     <form action="{{route('producto.index')}}" method="" class="form-inline">
       <label for="" class="nav-link">Buscar por categoria</label>
       <div class="form-group dropdown mr-2">
@@ -59,6 +67,11 @@ globales({{$cantidad}})
         <td>
           CANTIDAD
       </td>
+     
+           <td>
+           ESTADO
+
+           </td>
        
         
         
@@ -100,9 +113,38 @@ globales({{$cantidad}})
          
           
       </td>
+          @if (auth()->user()->rol_id==2)
+           <td>
+           <a href="" data-id="{{$producto->id}}" class="approved btn btn-{{$producto->estado=='pendiente'? "danger": "success"}} btn-sm  btn-round" data-toggle="modal" data-target="#confirmarestado">{{$producto->estado}}</a>
+
+           </td>
+           @else 
+           <td>
+            <label  class="btn btn-{{$producto->estado=='pendiente'? "danger": "success"}} btn-sm  btn-round" >{{$producto->estado}}</label>
+           </td>
         
+
+       @endif
       
-       
+       <div class="modal fade" id="confirmarestado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Informe</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Acaba de cambiar el estado de este producto
+            </div>
+            <div class="modal-footer">
+              
+            <button  type="button" class=" btn btn-success" data-dismiss="modal" >Entendido</button>
+            </div>
+          </div>
+        </div>
+      </div>
       
     <td>
       {{$producto->created_at->format('d-M-Y')}}
@@ -112,18 +154,27 @@ globales({{$cantidad}})
     {{$producto->user->name}}
    
     
-</td>    
-            <td>
-                <a href="{{route('producto.show',$producto->id)}}" class="btn btn-primary btn-sm  btn-round"><i class="material-icons">visibility</i></a>
-               
-                <a href="{{route('producto.edit',$producto->id)}}" class="btn btn-info btn-sm  btn-round"><i class="material-icons">create</i></a>
-               
-                    
-                    <button class="btn btn-danger btn-sm  btn-round" type="submit" data-toggle="modal" data-target="#deleteModal" data-id="{{ $producto->id}}"><i class="material-icons">delete</i></button>
-               
+</td>   
+@if ($producto->estado=="aprobado")
+<td>
+  <label class="btn btn-primary btn-sm  btn-round">BLOQUEADO</label>
+
+</td>
+
+@else
+<td>
+  <a href="{{route('producto.show',$producto->id)}}" class="btn btn-primary btn-sm  btn-round"><i class="material-icons">visibility</i></a>
+ 
+  <a href="{{route('producto.edit',$producto->id)}}" class="btn btn-info btn-sm  btn-round"><i class="material-icons">create</i></a>
+ 
+      
+      <button class="btn btn-danger btn-sm  btn-round" type="submit" data-toggle="modal" data-target="#deleteModal" data-id="{{ $producto->id}}"><i class="material-icons">delete</i></button>
+ 
 
 
-            </td>
+</td>
+@endif 
+            
         </tr>
         @endforeach
     </tbody>
@@ -162,10 +213,33 @@ globales({{$cantidad}})
     </div>
   </div>
   <script>
-//$('#title').on('show.bs.modal', function (event) {
-   //var extraction = $(event.relatedTarget) 
-  // var title=extraction.data('title')
-//}
+
+
+
+  document.querySelectorAll(".approved").
+forEach(link=>link.addEventListener("click", function(){
+
+var id=link.getAttribute("data-id");
+$.ajax({
+  method: "POST",
+  url: "{{URL::to("/")}}/dashboard/producto/estado/"+id,
+  data:{'_token': '{{csrf_token()}}'}
+})
+  .done(function( approved ) {
+   if(approved=="pendiente"){
+     $(link).removeClass('btn-success');
+     $(link).addClass('btn-danger');
+     $( link).text("Pendiente")
+   }else{
+    $(link).removeClass('btn-danger');
+     $(link).addClass('btn-success');
+     $( link).text("Aprobado")
+   }
+
+  });
+}))
+
+
 
       window.onload=function(){
       $('#deleteModal').on('show.bs.modal', function (event) {

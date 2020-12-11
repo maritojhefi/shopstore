@@ -11,7 +11,7 @@ class LandingPageController extends Controller
 {
     public function index(Request $request)
     {
-        $productos=DB::table('products')->paginate(10);
+        $productos=DB::table('products')->where('estado','=','aprobado')->paginate(10);
       $categorias =DB::table('categorias')->get();
      $productimages=DB::table('product_images')->get();
       $puestos=collect(['First slide','Second slide','Thrid slide']);

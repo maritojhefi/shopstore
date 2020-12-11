@@ -206,14 +206,19 @@ input[type="radio"]:checked ~ label {
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
+                <form action="{{route('comment.store')}}" method="POST">
+                  @csrf
                   <div class="modal-body">
-                    <textarea name="comentario" id="comentario" rows="10" class="form-control"></textarea>
+                    <textarea name="message" id="comentario" rows="10" class="form-control"></textarea>
                   </div>
                   <div class="modal-footer">
                     
-                    <button type="button" class="btn btn-sm btn-outline-success">Enviar Comentarios</button>
+                    <button type="submit" class="btn btn-sm btn-outline-success">Enviar Comentarios</button>
+                  </form>
                     <button type="button" class="btn btn-sm btn-outline-secondary " data-dismiss="modal">Cerrar</button>
                   </div>
+                
+                 
                 </div>
               </div>
             </div>

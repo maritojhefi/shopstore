@@ -23,8 +23,10 @@ Route::resource('dashboard/producto', 'dashboard\ProductController');
 Route::resource('dashboard/cat', 'dashboard\CategoriaController');
 Route::get('dashboard/main', 'MainController@index')->name('main.index');
 Route::resource('dashboard/user', 'dashboard\UserController');
+Route::post('dashboard/producto/estado/{estado}','dashboard\ProductController@estadoProducto')->name('producto.estado');
 
 //imagenes rutas
 Route::post('dashboard/producto{producto}/image', 'dashboard\ProductController@image')->name('producto.image');
 Route::get('dashboard/producto/image-download/{image}', 'dashboard\ProductController@imageDownload')->name('producto.imageDownload');
 Route::delete('dashboard/producto/image-delete/{image}', 'dashboard\ProductController@imagedelete')->name('producto.imagedelete');
+Route::post('dashboard/comment/','dashboard\CommentController@store')->name('comment.store');

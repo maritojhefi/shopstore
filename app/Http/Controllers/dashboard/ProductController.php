@@ -25,7 +25,15 @@ class ProductController extends Controller
     {
         $listCategorias=Categoria::pluck('id','nombre');
    
-        $productos=Product::with('categoria')->orderBy('id','desc');
+        if(auth()->user()->rol_id==1)
+        {
+            $productos=Product::with('categoria')->where('user_id','=',auth()->user()->id)->orderBy('id','desc');
+        }
+        else
+        {
+            $productos=Product::with('categoria')->orderBy('id','desc');
+        }
+        
         if($request->has('search')){
             $productos=$productos
             ->where('nombre','like','%'.request('search').'%');
@@ -60,6 +68,16 @@ class ProductController extends Controller
          return view("dashboard.productos.create",['producto'=>new Product(),'listCategorias'=>$listCategorias,'listUsers'=>$listUsers]);
     }
 
+    public function estadoProducto(Product $estado){
+        if($estado->estado=="pendiente"){
+            $estado->estado="aprobado";
+        }
+        else{
+            $estado->estado="pendiente";
+        }
+        $estado->save();
+return response()->json($estado->estado);
+    }
     /**
      * Store a newly created resource in storage.
      *

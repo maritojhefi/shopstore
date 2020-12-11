@@ -15,7 +15,8 @@
 <form action="{{route("producto.store")}}" method="POST">
    
 
- @include('dashboard.productos._form')      
+ @include('dashboard.productos._form')   
+    
 </form>
     </div>
 </div>
