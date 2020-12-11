@@ -53,7 +53,7 @@
             
             <td>
                
-               
+              <a href="{{route('user.show',$user->id)}}" class="btn btn-warning btn-round"> <i class="material-icons">help</i> </a>
                 <a href="{{route('user.edit',$user->id)}}" class="btn btn-info btn-round"> <i class="material-icons">create</i> </a>
                
                     

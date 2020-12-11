@@ -35,11 +35,16 @@
 
 
 <div class="form-group">
-    <label for="foto" class="bmd-label-floating">Categoria</label>
-    <input type="text" name="foto"readonly class="form-control" id="foto" value="@if($producto->category!=null){{$producto->category->nombre}}@endif">
+    <label for="foto" class="bmd-label-floating">Fecha de publicacion</label>
+    <input type="text" name="foto"readonly class="form-control" id="foto" value="{{$producto->created_at}}">
 
 </div>
 
+<div class="form-group">
+    <label for="foto" class="bmd-label-floating">Numero de interesados</label>
+    <input type="text" name="foto"readonly class="form-control" id="foto" value="0">
+
+</div>
 
 
     </div>
