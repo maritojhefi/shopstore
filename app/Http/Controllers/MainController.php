@@ -23,6 +23,6 @@ class MainController extends Controller
       $categorias =Categoria::all()->count();
      $productimages=ProductImage::all()->count();
      
-         return view('dashboard.main.dashboard',['productos'=>$productos,'categorias'=>$categorias, 'imagenes'=> $productimages,'usuarios'=>$usuarios]);
+         return view('dashboard2.main.dashboard',['productos'=>$productos,'categorias'=>$categorias, 'imagenes'=> $productimages,'usuarios'=>$usuarios]);
     }
 }

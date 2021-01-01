@@ -46,10 +46,10 @@ class ProductController extends Controller
             ->where('category_id','like','%'.request('categorysearch').'%');
     
         }
-       $productos=$productos->paginate(8);
+       $productos=$productos->paginate(6);
         $cantidad=$productos->total();
         
-         return view('dashboard.productos.index',['productos'=>$productos,'cantidad'=>$cantidad,'listCategorias'=>$listCategorias]);
+         return view('dashboard2.productos.index',['productos'=>$productos,'cantidad'=>$cantidad,'listCategorias'=>$listCategorias]);
     }
 
    
@@ -61,11 +61,12 @@ class ProductController extends Controller
      */
     public function create()
     {
+        
         $listCategorias=Categoria::pluck('id','nombre');
        
         $listUsers=User::pluck('id','name');
 
-         return view("dashboard.productos.create",['producto'=>new Product(),'listCategorias'=>$listCategorias,'listUsers'=>$listUsers]);
+         return view("dashboard2.productos.create",['producto'=>new Product(),'listCategorias'=>$listCategorias,'listUsers'=>$listUsers]);
     }
 
     public function estadoProducto(Product $estado){
@@ -101,7 +102,7 @@ return response()->json($estado->estado);
      */
     public function show(Product $producto)
     {
-        return view ('dashboard.productos.show',["producto"=>$producto]);
+        return view ('dashboard2.productos.show',["producto"=>$producto]);
     }
 
     /**
@@ -116,7 +117,7 @@ return response()->json($estado->estado);
         $listCategorias=Categoria::pluck('id','nombre');
        
 
-        return view('dashboard.productos.edit',["producto"=>$producto,'listCategorias'=>$listCategorias]);
+        return view('dashboard2.productos.edit',["producto"=>$producto,'listCategorias'=>$listCategorias]);
     }
 
     /**

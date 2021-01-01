@@ -30,3 +30,7 @@ Route::post('dashboard/producto{producto}/image', 'dashboard\ProductController@i
 Route::get('dashboard/producto/image-download/{image}', 'dashboard\ProductController@imageDownload')->name('producto.imageDownload');
 Route::delete('dashboard/producto/image-delete/{image}', 'dashboard\ProductController@imagedelete')->name('producto.imagedelete');
 Route::post('dashboard/comment/','dashboard\CommentController@store')->name('comment.store');
+
+Route::resource('dashboard2/usuario','dashboard\UserController');
+Route::resource('dashboard2/producto','dashboard\ProductController');
+Route::resource('dashboard2/categoria','dashboard\CategoryController');

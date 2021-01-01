@@ -20,7 +20,11 @@ class UserController extends Controller
     {
         $users=User::orderBy('id','desc')->paginate(8);
        
-         return view('dashboard.user.index',['users'=>$users]);
+         return view('dashboard2.user.index',['users'=>$users]);
+    }
+
+    public function muestra(){
+        return view('dashboard2.productos.index');
     }
 
     /**
@@ -32,7 +36,7 @@ class UserController extends Controller
     {
         $listRols=Rol::pluck('id','nombre','detalle');
 
-         return view("dashboard.user.create",['user'=>new User(),'listRols'=>$listRols]);
+         return view("dashboard2.user.create",['user'=>new User(),'listRols'=>$listRols]);
     }
 
     /**
@@ -61,7 +65,7 @@ class UserController extends Controller
         $productos=Product::with('categoria')->where('user_id','=',$user->id)->orderBy('id','desc');
         $productos=$productos->count();
         
-        return view ('dashboard.user.show',["user"=>$user,"total"=>$productos]);
+        return view ('dashboard2.user.show',["user"=>$user,"total"=>$productos]);
     }
 
     /**
@@ -74,7 +78,7 @@ class UserController extends Controller
     {
         $listRols=Rol::pluck('id','nombre','detalle');
 
-        return view('dashboard.user.edit',["user"=>$user,'listRols'=>$listRols]);
+        return view('dashboard2.user.edit',["user"=>$user,'listRols'=>$listRols]);
     }
 
     /**

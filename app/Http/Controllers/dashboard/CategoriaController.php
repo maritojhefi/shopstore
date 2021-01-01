@@ -15,9 +15,9 @@ class CategoriaController extends Controller
     }
     public function index()
     {
-        $categorias=Categoria::orderBy('id','desc')->paginate(10);
+        $categorias=Categoria::orderBy('id','desc')->paginate(6);
        
-         return view('dashboard.categorias.index',['categorias'=>$categorias]);
+         return view('dashboard2.categorias.index',['categorias'=>$categorias]);
     }
 
     /**
@@ -29,7 +29,7 @@ class CategoriaController extends Controller
     {
         
 
-         return view("dashboard.categorias.create",['categoria'=>new Categoria()]);
+         return view("dashboard2.categorias.create",['categoria'=>new Categoria()]);
     }
 
     /**
@@ -56,7 +56,7 @@ class CategoriaController extends Controller
     public function show(Categoria $categoria)
     {
         
-        return view ('dashboard.categorias.show',["categoria"=>$categoria]);
+        return view ('dashboard2.categorias.show',["categoria"=>$categoria]);
     }
 
     /**
@@ -68,7 +68,7 @@ class CategoriaController extends Controller
     public function edit(Categoria $categoria)
     {
        
-        return view('dashboard.categorias.edit',["categoria"=>$categoria]);
+        return view('dashboard2.categorias.edit',["categoria"=>$categoria]);
     }
 
     /**
