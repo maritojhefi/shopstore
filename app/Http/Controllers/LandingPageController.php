@@ -15,13 +15,13 @@ class LandingPageController extends Controller
       $categorias =DB::table('categorias')->get();
      $productimages=DB::table('product_images')->get();
       $puestos=collect(['First slide','Second slide','Thrid slide']);
-         return view('welcome',['productos'=>$productos,'categorias'=>$categorias, 'puestos'=>$puestos,'imagenes'=> $productimages]);
+         return view('dashboard2.vista_general.accesorios',['productos'=>$productos,'categorias'=>$categorias, 'puestos'=>$puestos,'imagenes'=> $productimages]);
     }
 
     public function indexPersonalizado(Request $request, Categoria $categoria){
         $categorias =DB::table('categorias')->get();
      $productimages=DB::table('product_images')->get();
         $productos=Product::where('category_id','=',$categoria->id)->paginate(10);
-        return view('welcome',['productos'=>$productos,'categorias'=>$categorias,'imagenes'=> $productimages]);
+        return view('dashboard2.vista_general.accesorios',['productos'=>$productos,'categorias'=>$categorias,'imagenes'=> $productimages]);
     }
 }

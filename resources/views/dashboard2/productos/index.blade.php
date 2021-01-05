@@ -12,7 +12,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-9">
-          <h1 class="font-weight-bold mb-0"> Supervisor</h1>
+          <h1 class="font-weight-bold mb-0">Tienes el rol de {{auth()->user()->rol->nombre}}</h1>
           <p class="lead text-muted">Revisa la última información</p>
         </div>
         

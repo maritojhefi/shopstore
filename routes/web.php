@@ -34,3 +34,8 @@ Route::post('dashboard/comment/','dashboard\CommentController@store')->name('com
 Route::resource('dashboard2/usuario','dashboard\UserController');
 Route::resource('dashboard2/producto','dashboard\ProductController');
 Route::resource('dashboard2/categoria','dashboard\CategoryController');
+
+Route::get('principal',function () {
+    return view('dashboard2/vista_general/accesorios');
+});
+Route::get('principal/filtro', 'dashboard\ProductController@index2')->name('producto.index2');
