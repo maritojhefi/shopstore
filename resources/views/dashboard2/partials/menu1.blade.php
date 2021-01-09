@@ -1,30 +1,61 @@
-
-<html>
+<!DOCTYPE html>
+<html lang="es">
 <head>
-  @yield('title')
-<title>Cliente </title>
-<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-<link rel="stylesheet" href="{{asset('css/bootstrap-select.min.css')}}">
  
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
-<link href="{{asset('templatemain/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+  <link rel="stylesheet" href="{{asset('css/bootstrap-select.min.css')}}">
+   
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
+  <link href="{{asset('templatemain/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
-</head>
-<doctype html>
-</html>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+
+    <title>ShopStore</title>
 @section('sidebar')
-<html lang="en">
+<style>
+  #form {
+width: 250px;
+margin: 0 auto;
+height: 50px;
+}
+
+#form p {
+text-align: center;
+}
+
+#form label {
+font-size: 30px;
+}
+
+input[type="radio"] {
+display: none;
+}
+
+label {
+color: grey;
+}
+
+.clasificacion {
+direction: rtl;
+unicode-bidi: bidi-override;
+}
+
+label:hover,
+label:hover ~ label {
+color: orange;
+}
+
+input[type="radio"]:checked ~ label {
+color: orange;
+}
+</style>
 
 <body>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-<link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+
 
 
 <body background="../imagenes/fon.jpg">
@@ -43,7 +74,7 @@
         <a class="nav-link" href="/login">Iniciar <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/registro">Registrarse</a>
+        <a class="nav-link" href="/register">Registrarse</a>
       </li>
       @endguest
       <div class="dropdown">
@@ -61,9 +92,22 @@
   </div>
 </div>
 @auth
-<li class="nav-item">
-<label class="nav-link" href="">Bienvenido {{auth()->user()->name}}</label>
-  </li>
+<li class="nav-item dropdown ml-auto">
+  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Bienvenid@! {{auth()->user()->name}}
+  </a>
+  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+    <a class="dropdown-item" href="{{ route('logout') }}"
+       onclick="event.preventDefault();
+                     document.getElementById('logout-form').submit();">
+Cerrar sesion
+    </a>
+
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+        @csrf
+    </form>
+</div>
+</li>
 <li class="nav-item">
 <a class="nav-link" href="{{route('producto.index')}}">Ir al Panel</a>
 </li>

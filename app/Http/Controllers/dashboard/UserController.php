@@ -77,8 +77,8 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $listRols=Rol::pluck('id','nombre','detalle');
-
-        return view('dashboard2.user.edit',["user"=>$user,'listRols'=>$listRols]);
+        $pass=$user->password;
+        return view('dashboard2.user.edit',["user"=>$user,'listRols'=>$listRols,"password"=>$pass]);
     }
 
     /**

@@ -97,6 +97,7 @@
               <h5>{{$item->precio}} $us</h5>
             <p class="card-text">{{$item->detalle}}</p>
             </div>
+            @auth
             <div class="row">
               <div class="ml-3 col-4">
                 <a href="" class="btn-block  btn btn-dark btn-sm mt-2 btn-round" data-toggle="modal" data-target="#ModalComentario"><i class="fa fa-comment"></i></a>
@@ -109,7 +110,16 @@
               </form>
               </div>
              
+            </div> 
+            @endauth
+            @guest
+            <div class="col">
+                
+              <a href="/login" class="btn-block  btn btn-info btn-sm mt-2 " >Iniciar Sesion para comprar</a>
+            </form>
             </div>
+            @endguest
+            
             <div class="card-footer">
               <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
             </div>

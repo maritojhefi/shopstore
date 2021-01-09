@@ -1,7 +1,7 @@
 @extends('dashboard2.master')   
 @section('content')
 
-<div id="content">
+<div >
     <section class="p-y3">
       <div class="container">
         <div class="row">
@@ -14,12 +14,12 @@
       </div>
 
     </section>
-    <section class="bg-mix">
+   
       <div class="container">
         <div class="card rounded-0">
           <div class="card-body">
               <h4> Vista del Producto </h4>
-<form>
+
   <div class="form-group">
     <label for="nombre" class="bmd-label-floating">Producto</label>
 <input type="text" readonly name="nombre" class="form-control" id="nombre" value="{{$producto->nombre}}">
@@ -52,14 +52,13 @@
     <input type="text" name="foto"readonly class="form-control" id="foto" value="0">
 
 </div>
-</form>
-
-<a href="{{route('producto.index')}}" button type="submit" class="btn btn-primary mb-2">Regresar </button>
 
 
-    </section>
+<a href="{{route('producto.index')}}" button type="submit" class="btn btn-primary mb-2">Regresar </a>
+
+
+    
 
   </div>
-</div>
-</div>
+
 @endsection

@@ -111,7 +111,7 @@
                 </td>
                     @if (auth()->user()->rol_id==2)
                      <td>
-                     <a href="" data-id="{{$producto->id}}" class="approved btn btn-{{$producto->estado=='pendiente'? "danger": "success"}} btn-sm  btn-round" data-toggle="modal" data-target="#confirmarestado">{{$producto->estado}}</a>
+                     <a href="" data-id="{{$producto->id}}" class="approved btn btn-{{$producto->estado=='pendiente'? "warning": "info"}} btn-sm  btn-round" data-toggle="modal" data-target="#confirmarestado">{{$producto->estado}}</a>
           
                      </td>
                      @else 
@@ -153,7 +153,7 @@
           </td>   
           @if ($producto->estado=="aprobado")
           <td>
-            <label class="btn btn-primary btn-sm  btn-round">BLOQUEADO</label>
+            <a href="{{route('producto.show',$producto->id)}}" class="btn btn-primary btn-sm  btn-round"><i class="material-icons">visibility</i></a>
           
           </td>
           
@@ -224,10 +224,17 @@ $.ajax({
   .done(function( approved ) {
    if(approved=="pendiente"){
      $(link).removeClass('btn-success');
-     $(link).addClass('btn-danger');
+     $(link).removeClass('btn-danger');
+     $(link).addClass('btn-warning');
      $( link).text("Pendiente")
-   }else{
-    $(link).removeClass('btn-danger');
+   }
+   else if(approved=="rechazado"){
+     $(link).removeClass('btn-success');
+     $(link).addClass('btn-danger');
+     $( link).text("Rechazado")
+   }
+   else if(approved=="aprobado"){
+    $(link).removeClass('btn-warning');
      $(link).addClass('btn-success');
      $( link).text("Aprobado")
    }

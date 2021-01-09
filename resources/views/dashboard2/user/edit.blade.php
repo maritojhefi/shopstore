@@ -1,7 +1,7 @@
 @extends('dashboard2.master')   
 @section('content')
 
-@include('dashboard.partials.validation-error')
+@include('dashboard2.partials.validation-error')
 <div class="card">
   <div class="card-header card-header-warning">
     <h4 class="card-title">
@@ -14,7 +14,7 @@
   <div class="card-body">  
 <form action="{{route("user.update",$user->id)}}" method="POST">
   @method('PUT')
- @include('dashboard.user._form')      
+ @include('dashboard2.user._form')      
 </form>
   </div>
 </div>

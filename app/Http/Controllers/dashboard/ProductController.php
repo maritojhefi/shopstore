@@ -101,8 +101,11 @@ class ProductController extends Controller
         if($estado->estado=="pendiente"){
             $estado->estado="aprobado";
         }
-        else{
-            $estado->estado="pendiente";
+        else if($estado->estado=="aprobado"){
+            $estado->estado="rechazado";
+        }
+        else if($estado->estado=="rechazado"){
+            $estado->estado="aprobado";
         }
         $estado->save();
 return response()->json($estado->estado);
