@@ -2,17 +2,11 @@
 
 namespace App\Http\Controllers\dashboard;
 
-use App\Categoria;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreCategoria;
+use Illuminate\Http\Request;
 
-class CategoriaController extends Controller
+class SubcategoriaController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['auth','rol.admin']);
-    }
     public function index()
     {
         $categorias=Categoria::orderBy('id','desc')->paginate(6);
@@ -67,7 +61,7 @@ class CategoriaController extends Controller
      */
     public function edit(Categoria $cat)
     {
-      
+       
         return view('dashboard2.categorias.edit',["categoria"=>$cat]);
     }
 

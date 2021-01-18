@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\dashboard;
 
 use App\Comment;
+use App\Categoria;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreComment;
 use App\Http\Controllers\Controller;
@@ -22,7 +23,7 @@ class CommentController extends Controller
      * @return \Illuminate\Http\Response
      */
    
-    public function store(StoreComment $request)
+    public function guardar(StoreComment $request)
     {
         
       Comment::create($request->validated());

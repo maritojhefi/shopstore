@@ -234,9 +234,10 @@ input[type="radio"]:checked ~ label {
                   </div>
                   <div class="modal-body">
                    Detalle del producto
-                   Producto:Nike talla 45
-                   Precio:350
-                   Estado:Nuevo
+                   Producto:{{$item->nombre}}
+                   Precio:{{$item->precio}}
+                   Estado:{{$item->detalle}}
+                   Subcategorias:{{$item->subcategorias()}}
                   </div>
                   <div class="modal-footer">
                    

@@ -11,7 +11,7 @@
           <div class="form-group">
               <label for="email" class="bmd-label-floating">Correo</label>
               <input type="email" name="email" class="form-control" id="email" value="{{old('email',$user->email)}}">
-        
+              <span id="error_email"></span>
           </div>
         
           <div class="form-group">
@@ -51,5 +51,5 @@
  
 
 
-
+            
 

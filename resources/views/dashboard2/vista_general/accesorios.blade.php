@@ -136,7 +136,8 @@
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-              <form action="{{route('comment.store')}}" method="POST">
+              <form action="{{route('comment')}}" method="POST" >
+               
                 @csrf
                 <div class="modal-body">
                   <textarea name="message" id="comentario" rows="10" class="form-control"></textarea>
@@ -163,10 +164,11 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                 Detalle del producto
-                 Producto:Nike talla 45
-                 Precio:350
-                 Estado:Nuevo
+                  Detalle del producto
+                  Producto:{{$item->nombre}}<br>
+                  Precio:{{$item->precio}}<br>
+                  Detalle:{{$item->detalle}}<br>
+                  
                 </div>
                 <div class="modal-footer">
                  

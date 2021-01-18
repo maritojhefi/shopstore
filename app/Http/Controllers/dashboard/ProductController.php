@@ -6,6 +6,7 @@ use App\User;
 use App\Product;
 use App\Categoria;
 use App\ProductImage;
+use App\Subcategoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreProduct;
@@ -91,20 +92,23 @@ class ProductController extends Controller
     {
         
         $listCategorias=Categoria::pluck('id','nombre');
-       
+       $listSubcategorias=Subcategoria::pluck('id','nombre');
         $listUsers=User::pluck('id','name');
 
-         return view("dashboard2.productos.create",['producto'=>new Product(),'listCategorias'=>$listCategorias,'listUsers'=>$listUsers]);
+         return view("dashboard2.productos.create",['producto'=>new Product(),'listCategorias'=>$listCategorias,'listUsers'=>$listUsers,'listSubcategorias'=>$listSubcategorias]);
     }
 
     public function estadoProducto(Product $estado){
-        if($estado->estado=="pendiente"){
+        if($estado->estado=="null"){
             $estado->estado="aprobado";
         }
         else if($estado->estado=="aprobado"){
             $estado->estado="rechazado";
         }
         else if($estado->estado=="rechazado"){
+            $estado->estado="concesionado";
+        }
+        else if($estado->estado=="concesionado"){
             $estado->estado="aprobado";
         }
         $estado->save();
@@ -118,9 +122,9 @@ return response()->json($estado->estado);
      */
     public function store(StoreProduct $request)
     {
-        
-      Product::create($request->validated());
-
+     
+      $product= Product::create($request->validated());
+      $product->subcategorias()->sync($request->subcategory_id);
       
       return back()->with('status','Producto Guardado!');
     }
@@ -144,11 +148,13 @@ return response()->json($estado->estado);
      */
     public function edit(Product $producto)
     {
-        
+        //dd(old('subcategory_id'));
+        $listSubcategorias=Subcategoria::pluck('id','nombre');
+
         $listCategorias=Categoria::pluck('id','nombre');
        
 
-        return view('dashboard2.productos.edit',["producto"=>$producto,'listCategorias'=>$listCategorias]);
+        return view('dashboard2.productos.edit',["producto"=>$producto,'listCategorias'=>$listCategorias,'listSubcategorias'=>$listSubcategorias]);
     }
 
     /**
@@ -158,12 +164,16 @@ return response()->json($estado->estado);
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreProduct $request, Product $product)
+    public function update(StoreProduct $request, Product $producto)
     {
-        
-        $product->update($request->validated());
+       
+        $producto->subcategorias()->sync($request->subcategory_id);
+        $producto->update($request->validated());
         return back()->with('status','Producto Actualizado!');
     }
+
+ 
+
     public function image(Request $request, Product $producto)
     {
        

@@ -29,7 +29,7 @@ Route::post('dashboard/producto/estado/{estado}','dashboard\ProductController@es
 Route::post('dashboard/producto{producto}/image', 'dashboard\ProductController@image')->name('producto.image');
 Route::get('dashboard/producto/image-download/{image}', 'dashboard\ProductController@imageDownload')->name('producto.imageDownload');
 Route::delete('dashboard/producto/image-delete/{image}', 'dashboard\ProductController@imagedelete')->name('producto.imagedelete');
-Route::post('dashboard/comment/','dashboard\CommentController@store')->name('comment.store');
+Route::get('dashboard/comment/','dashboard\CommentController@guardar')->name('comment');
 
 Route::resource('dashboard2/usuario','dashboard\UserController');
 Route::resource('dashboard2/producto','dashboard\ProductController');
@@ -39,3 +39,6 @@ Route::get('principal',function () {
     return view('dashboard2/vista_general/accesorios');
 });
 Route::get('principal/filtro', 'dashboard\ProductController@index2')->name('producto.index2');
+Route::post('verificar','AjaxControler@verificarCorreo')->name('verificar');
+
+Route::post('verificar','AjaxControler@verificarCorreo')->name('agregarsubcategoria');

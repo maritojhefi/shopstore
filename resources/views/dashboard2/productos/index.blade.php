@@ -151,7 +151,7 @@
              
               
           </td>   
-          @if ($producto->estado=="aprobado")
+          @if ($producto->estado=="aprobado" ||$producto->estado=="concesionado")
           <td>
             <a href="{{route('producto.show',$producto->id)}}" class="btn btn-primary btn-sm  btn-round"><i class="material-icons">visibility</i></a>
           
@@ -222,7 +222,7 @@ $.ajax({
   data:{'_token': '{{csrf_token()}}'}
 })
   .done(function( approved ) {
-   if(approved=="pendiente"){
+   if(approved=="null"){
      $(link).removeClass('btn-success');
      $(link).removeClass('btn-danger');
      $(link).addClass('btn-warning');
@@ -235,10 +235,14 @@ $.ajax({
    }
    else if(approved=="aprobado"){
     $(link).removeClass('btn-warning');
-     $(link).addClass('btn-success');
+     $(link).addClass('btn-info');
      $( link).text("Aprobado")
    }
-
+   else if(approved=="concesionado"){
+    $(link).removeClass('btn-danger').removeClass('btn-info');
+     $(link).addClass('btn-success');
+     $( link).text("Concesionado")
+   }
   });
 }))
 
