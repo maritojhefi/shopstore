@@ -4,6 +4,7 @@ namespace App\Http\Controllers\dashboard;
 
 use App\Rol;
 use App\User;
+use App\Venta;
 use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Requests\EditUser;
@@ -64,8 +65,8 @@ class UserController extends Controller
     {
         $productos=Product::with('categoria')->where('user_id','=',$user->id)->orderBy('id','desc');
         $productos=$productos->count();
-        
-        return view ('dashboard2.user.show',["user"=>$user,"total"=>$productos]);
+        $ventas=Venta::where('comprador_id',$user->id)->count();
+        return view ('dashboard2.user.show',["user"=>$user,"total"=>$productos,'ventas'=>$ventas]);
     }
 
     /**

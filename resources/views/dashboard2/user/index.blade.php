@@ -36,6 +36,9 @@
           <td>
             Correo
         </td>
+        <td>
+          Monto Acumulado
+      </td>
          
             <td>
                 Acciones
@@ -56,7 +59,9 @@
             <td>
                 {{$user->email}}
             </td>
-           
+            <td>
+              {{$user->cash}} $us
+          </td>
             
             <td>
                

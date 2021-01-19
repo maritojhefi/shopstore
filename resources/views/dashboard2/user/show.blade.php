@@ -33,7 +33,7 @@
         </div>
         <div class="form-group">
           <label for="url_clean">Transacciones realizadas</label>
-          <input type="text" name="url_clean"readonly class="form-control" id="url_clean" value="2">
+          <input type="text" name="url_clean"readonly class="form-control" id="url_clean" value="{{$ventas}}">
     
       </div>
       <div class="form-group">
