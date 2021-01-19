@@ -3,6 +3,7 @@
 namespace App;
 
 use App\User;
+use App\Venta;
 use App\Categoria;
 use App\ProductImage;
 use Illuminate\Database\Eloquent\Model;
@@ -29,5 +30,11 @@ class Product extends Model
     {
         return $this->belongsToMany(Subcategoria::class);
     }
+   
+public function venta()
+{
+ return $this->morphTo(Venta::class,'product_id');
+
+}
    
 }

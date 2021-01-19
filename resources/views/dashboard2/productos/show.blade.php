@@ -46,12 +46,14 @@
     <input type="text" name="foto"readonly class="form-control" id="foto" value="{{$producto->created_at}}">
 
 </div>
-
+@if ($producto->comentario !=null)
 <div class="form-group">
-    <label for="foto" class="bmd-label-floating">Numero de interesados</label>
-    <input type="text" name="foto"readonly class="form-control" id="foto" value="0">
+  <label for="foto" class="bmd-label-floating">Motivo de rechazo</label>
+  <input type="text" name="foto"readonly class="form-control" id="foto" value="{{$producto->comentario}}">
 
 </div>
+@endif
+
 
 
 <a href="{{route('producto.index')}}" button type="submit" class="btn btn-primary mb-2">Regresar </a>

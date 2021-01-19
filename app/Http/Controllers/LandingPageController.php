@@ -10,8 +10,11 @@ use Symfony\Component\HttpFoundation\Request;
 
 class LandingPageController extends Controller
 {
-    public function index(Request $request)
+    public function index(Product $products, Request $request)
     {
+       // $product=Product::with('subcategorias')->where('estado','=','concesionado')->get();
+       //$productss=$products->subcategorias()->pluck('id');
+        
         $subcategorias = Subcategoria::pluck('id','nombre');
         
         $productos=DB::table('products')->where('estado','=','concesionado')->paginate(10);

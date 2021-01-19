@@ -29,11 +29,18 @@ Route::post('dashboard/producto/estado/{estado}','dashboard\ProductController@es
 Route::post('dashboard/producto{producto}/image', 'dashboard\ProductController@image')->name('producto.image');
 Route::get('dashboard/producto/image-download/{image}', 'dashboard\ProductController@imageDownload')->name('producto.imageDownload');
 Route::delete('dashboard/producto/image-delete/{image}', 'dashboard\ProductController@imagedelete')->name('producto.imagedelete');
-Route::get('dashboard/comment/','dashboard\CommentController@guardar')->name('comment');
+Route::post('dashboard/comment','dashboard\CommentController@guardar')->name('comment');
+Route::post('dashboard/comprar','dashboard\TransaccionesController@comprar')->name('comprar');
+Route::post('dashboard/producto/rechazado','dashboard\ProductController@rechazado')->name('comentrechazado');
+Route::get('dashboard/ventas','dashboard\ProductController@ventas')->name('ventas.contador');
+Route::post('dashboard/venta/cambiarestado/{estad}','dashboard\ProductController@cambiarestado');
+
+
+
 
 Route::resource('dashboard2/usuario','dashboard\UserController');
 Route::resource('dashboard2/producto','dashboard\ProductController');
-Route::resource('dashboard2/categoria','dashboard\CategoryController');
+
 
 Route::get('principal',function () {
     return view('dashboard2/vista_general/accesorios');
@@ -41,4 +48,3 @@ Route::get('principal',function () {
 Route::get('principal/filtro', 'dashboard\ProductController@index2')->name('producto.index2');
 Route::post('verificar','AjaxControler@verificarCorreo')->name('verificar');
 
-Route::post('verificar','AjaxControler@verificarCorreo')->name('agregarsubcategoria');

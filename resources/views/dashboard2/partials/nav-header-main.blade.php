@@ -10,12 +10,17 @@
         
         
           @if (auth()->user()->rol_id==3 || auth()->user()->rol_id==2)
+          @if (auth()->user()->rol_id==3)
           <li class="nav-item {{ Request::path()=='dashboard/main' ? 'active':''}}">
-           <a class="nav-link" href="{{route('main.index')}}">
-            
-             <p>Dashboard</p>
-           </a>
-         </li>
+            <a class="nav-link" href="{{route('main.index')}}">
+             
+              <p>Dashboard</p>
+            </a>
+          </li>
+          @endif
+        
+         
+         
          <li class="nav-item {{ Request::path()=='dashboard/cat' ? 'active':''}}">
            <a class="nav-link" href="{{route('cat.index')}}">
             
@@ -29,8 +34,15 @@
            </a>
          </li>
           @endif
-           
-           
+           @if (auth()->user()->rol_id==4)
+           <li class="nav-item {{ Request::path()=='dashboard/producto/ventas' ? 'active':''}}">
+            <a class="nav-link" href="{{route('ventas.contador')}}">
+             
+              <p>Ventas</p>
+            </a>
+          </li>
+           @endif
+         
            <li class="nav-item {{ Request::path()=='dashboard2/producto' ? 'active':''}}">
              <a class="nav-link" href="{{route('producto.index')}}">
                

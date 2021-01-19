@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\dashboard;
 
 use App\User;
+use App\Venta;
 use App\Product;
 use App\Categoria;
 use App\ProductImage;
@@ -97,19 +98,60 @@ class ProductController extends Controller
 
          return view("dashboard2.productos.create",['producto'=>new Product(),'listCategorias'=>$listCategorias,'listUsers'=>$listUsers,'listSubcategorias'=>$listSubcategorias]);
     }
+    public function ventas()
+     {
+        $productos = Product::all();
+        $comprador = User::all();
+            $ventas=Venta::paginate(10);
+            
+            return view("dashboard2.productos.indexcontador",compact('ventas','productos','comprador'));
+     }
+
+    public function rechazado(Request $request)
+    {
+        DB::table('products')
+              ->where('id', $request->id)
+              ->update(['comentario' => $request->comentario]);
+              return back();
+    }
+
+    public function cambiarestado(Venta $estad)
+    {
+      if($estad->estado=="pendiente")
+      {
+        DB::table('ventas')
+        ->where('id', $estad->id)
+        ->update(['estado' => "entregado"]);
+        DB::table('users')->where('id','=',$estad->comprador_id)->increment('cash',$estad->total);
+
+      }
+      else if($estad->estado=="entregado"){
+        DB::table('ventas')
+        ->where('id', $estad->id)
+        ->update(['estado' => "pendiente"]);
+        DB::table('users')->where('id','=',$estad->comprador_id)->decrement('cash',$estad->total);
+      }
+      
+       return response()->json($estad->estado);
+    }
+
 
     public function estadoProducto(Product $estado){
+       
         if($estado->estado=="null"){
             $estado->estado="aprobado";
+            $estado->comentario="";
         }
         else if($estado->estado=="aprobado"){
             $estado->estado="rechazado";
         }
         else if($estado->estado=="rechazado"){
             $estado->estado="concesionado";
+            $estado->comentario="";
         }
         else if($estado->estado=="concesionado"){
             $estado->estado="aprobado";
+            $estado->comentario="";
         }
         $estado->save();
 return response()->json($estado->estado);

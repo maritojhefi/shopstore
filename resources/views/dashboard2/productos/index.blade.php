@@ -111,6 +111,9 @@
                 </td>
                     @if (auth()->user()->rol_id==2)
                      <td>
+                      
+                           
+                      
                      <a href="" data-id="{{$producto->id}}" class="approved btn btn-{{$producto->estado=='pendiente'? "warning": "info"}} btn-sm  btn-round" data-toggle="modal" data-target="#confirmarestado">{{$producto->estado}}</a>
           
                      </td>
@@ -122,21 +125,25 @@
           
                  @endif
                 
-                 <div class="modal fade" id="confirmarestado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                 <div class="modal fade" id="confirmasrestado-{{$producto->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog  modal-dialog-centered">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Informe</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Porque fue rechazado?</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
                       <div class="modal-body">
-                        Acaba de cambiar el estado de este producto
+                        <form action="{{route('comentrechazado')}}" method="post">
+                          @csrf
+                        <textarea name="comentario" id="" class="form-control"></textarea>
+                        <input type="hidden" value="{{$producto->id}}" name="id">
                       </div>
                       <div class="modal-footer">
                         
-                      <button  type="button" class=" btn btn-success" data-dismiss="modal" >Entendido</button>
+                      <button  type="submit" class=" btn btn-success" >Enviar Comentario</button>
+                    </form>
                       </div>
                     </div>
                   </div>
@@ -232,6 +239,7 @@ $.ajax({
      $(link).removeClass('btn-success');
      $(link).addClass('btn-danger');
      $( link).text("Rechazado")
+     $("#confirmasrestado-"+id).modal("show");
    }
    else if(approved=="aprobado"){
     $(link).removeClass('btn-warning');

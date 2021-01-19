@@ -96,19 +96,29 @@
               </h4>
               <h5>{{$item->precio}} $us</h5>
             <p class="card-text">{{$item->detalle}}</p>
+            <label for="">Stock: {{$item->cantidad}}</label>
             </div>
             @auth
             <div class="row">
               <div class="ml-3 col-4">
-                <a href="" class="btn-block  btn btn-dark btn-sm mt-2 btn-round" data-toggle="modal" data-target="#ModalComentario"><i class="fa fa-comment"></i></a>
+                <a href="" class="btn-block  btn btn-dark btn-sm mt-2 btn-round" data-toggle="modal" data-target="#ModalComentario-{{$item->id}}"><i class="fa fa-comment"></i></a>
           
               </div>
           <div class="col-2"></div>
-              <div class="col-4">
+          @if ($item->cantidad==0)
+          <div class="col-4">
                 
-                <button  class="btn-block  btn btn-info btn-sm mt-2 " data-toggle="modal" data-target="#ModalVenta"><i class="fa fa-shopping-cart"></i></button>
-              </form>
-              </div>
+            <button  class="btn-block  btn btn-info btn-sm mt-2 " id="{{ $item->id }}" data-toggle="modal" data-target="#staticBackdrop"><i class="fa fa-shopping-cart"></i></button>
+          
+          </div>
+          @else
+          <div class="col-4">
+                
+            <button  class="btn-block  btn btn-info btn-sm mt-2 " id="mymodal-{{ $item->id }}" data-toggle="modal" data-target="#ModalVenta-{{$item->id}}"><i class="fa fa-shopping-cart"></i></button>
+          
+          </div>
+          @endif
+              
              
             </div> 
             @endauth
@@ -116,7 +126,7 @@
             <div class="col">
                 
               <a href="/login" class="btn-block  btn btn-info btn-sm mt-2 " >Iniciar Sesion para comprar</a>
-            </form>
+           
             </div>
             @endguest
             
@@ -125,9 +135,9 @@
             </div>
           </div>
          
-          
+          @auth
           <!-- Modal Comentario -->
-          <div class="modal fade" id="ModalComentario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal fade" id="ModalComentario-{{$item->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
@@ -143,7 +153,9 @@
                   <textarea name="message" id="comentario" rows="10" class="form-control"></textarea>
                 </div>
                 <div class="modal-footer">
-                  
+                  <input type="hidden" value="{{$item->id}}" name="idproducto">
+                  <input type="hidden" value="{{auth()->user()->id}}" name="idcliente">
+
                   <button type="submit" class="btn btn-sm btn-outline-success">Enviar Comentarios</button>
                 
                   <button type="button" class="btn btn-sm btn-outline-secondary " data-dismiss="modal">Cerrar</button>
@@ -153,8 +165,9 @@
               </div>
             </div>
           </div>
+          @endauth
            <!-- Modal Venta-->
-           <div class="modal fade" id="ModalVenta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+           <div class="modal fade" id="ModalVenta-{{$item->id}}" >
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
@@ -164,55 +177,35 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                  Detalle del producto
-                  Producto:{{$item->nombre}}<br>
-                  Precio:{{$item->precio}}<br>
-                  Detalle:{{$item->detalle}}<br>
+                  <form action="{{route('comprar')}}" method="post">
+                    @csrf
+                    Detalle del producto <br>
+                    <label >Producto:{{$item->nombre}}</label><input type="hidden" for="" name="nombre" Value="{{$item->nombre}}"> <br>
+                    <label >Precio:{{$item->precio}}</label><input type="hidden" for="" name="precio" Value="{{$item->precio}}"> <br>
+                    <label >Detalle:{{$item->detalle}}</label><input type="hidden" for="" name="detalle" Value="{{$item->detalle}}"> <br>
+                    <label >Stock Disponible:{{$item->cantidad}}</label><input type="hidden" for="" name="detalle" Value="{{$item->cantidad}}"> <br>
+
+           <input type="hidden" value="{{$item->id}}" name="id">
+                 
+                 
                   
                 </div>
                 <div class="modal-footer">
                  
-                  <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#valoracion"  data-dismiss="modal">Confirmar Compra</button>
+                  <button type="submit" class="btn btn-sm btn-outline-success" >Confirmar Compra</button>
                   <button type="button" class="btn btn-sm btn-outline-danger " data-dismiss="modal">Cancelar</button>
                 </div>
+              </form>
               </div>
             </div>
           </div>
 
 
-<!-- Modal Valoracion -->
-<div class="modal fade" id="valoracion" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-<div class="modal-dialog modal-dialog-centered">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title" id="staticBackdropLabel">Valora tu experiencia</h5>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <p class="clasificacion">
-        <input id="radio1" type="radio" name="estrellas" value="5"><!--
-        --><label for="radio1">★</label><!--
-        --><input id="radio2" type="radio" name="estrellas" value="4"><!--
-        --><label for="radio2">★</label><!--
-        --><input id="radio3" type="radio" name="estrellas" value="3"><!--
-        --><label for="radio3">★</label><!--
-        --><input id="radio4" type="radio" name="estrellas" value="2"><!--
-        --><label for="radio4">★</label><!--
-        --><input id="radio5" type="radio" name="estrellas" value="1"><!--
-        --><label for="radio5">★</label>
-      </p>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-primary" data-dismiss="modal">Enviar Valoracion</button>
-    </div>
-  </div>
-</div>
-</div>
+
         </div>
         @endforeach
-      
+      <!-- Modal -->
+
 
 
       </div>
@@ -227,7 +220,24 @@
 
 </div>
 
-
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Alerta!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        El producto que intentas comprar se encuentra fuera de stock
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" data-dismiss="modal">Entendido</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 @endsection

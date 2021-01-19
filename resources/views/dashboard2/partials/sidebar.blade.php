@@ -12,6 +12,9 @@
   <div class="sidebar-wrapper">
     <ul class="nav">
      @if (auth()->user()->rol_id==3 || auth()->user()->rol_id==2)
+     @if (auth()->user()->rol_id==3)
+         
+     @endif
      <li class="nav-item {{ Request::path()=='dashboard/main' ? 'active':''}}">
       <a class="nav-link" href="{{route('main.index')}}">
         <i class="material-icons">location_city</i>

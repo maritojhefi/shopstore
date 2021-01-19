@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Rol;
+use App\Venta;
 use App\Product;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Notifications\Notifiable;
@@ -51,5 +52,10 @@ class User extends Authenticatable
     public function setPasswordAttribute($value)
     {
         $this->attributes["password"]=Hash::make($value);
+    }
+    public function venta()
+    {
+     return $this->belongsTo(Venta::class,'comprador_id');
+ 
     }
 }

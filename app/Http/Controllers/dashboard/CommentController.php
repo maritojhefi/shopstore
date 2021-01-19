@@ -5,6 +5,7 @@ namespace App\Http\Controllers\dashboard;
 use App\Comment;
 use App\Categoria;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreComment;
 use App\Http\Controllers\Controller;
 
@@ -23,12 +24,14 @@ class CommentController extends Controller
      * @return \Illuminate\Http\Response
      */
    
-    public function guardar(StoreComment $request)
+    public function guardar(Request $request)
     {
-        
-      Comment::create($request->validated());
-
-      return back()->with('status','Categoria  Registrada!');
+     
+     //DB::table('comments')->insert(
+     // ['titulo'=> 'comentario','message' => $request->message, 'product_id' => $request->idproducto, 'user_id'=>$request->idcliente]
+  //);
+      Comment::create(['titulo'=> 'comentario','message' => $request->message, 'product_id' => $request->idproducto, 'user_id'=>$request->idcliente]);
+      return back()->with('status','Comentario  Registrado!');
 
       
     }
