@@ -117,22 +117,22 @@ class ProductController extends Controller
 
     public function cambiarestado(Venta $estad)
     {
-      if($estad->estado=="pendiente")
-      {
-        DB::table('ventas')
-        ->where('id', $estad->id)
-        ->update(['estado' => "entregado"]);
-        DB::table('users')->where('id','=',$estad->comprador_id)->increment('cash',$estad->total);
-
-      }
-      else if($estad->estado=="entregado"){
-        DB::table('ventas')
-        ->where('id', $estad->id)
-        ->update(['estado' => "pendiente"]);
-        DB::table('users')->where('id','=',$estad->comprador_id)->decrement('cash',$estad->total);
-      }
-      
-       return response()->json($estad->estado);
+        if($estad->estado=="pendiente")
+        {
+          DB::table('ventas')
+          ->where('id', $estad->id)
+          ->update(['estado' => "entregado"]);
+          DB::table('users')->where('id','=',$estad->vendedor_id)->increment('cash',$estad->total);
+  
+        }
+        else if($estad->estado=="entregado"){
+          DB::table('ventas')
+          ->where('id', $estad->id)
+          ->update(['estado' => "pendiente"]);
+          DB::table('users')->where('id','=',$estad->vendedor_id)->decrement('cash',$estad->total);
+        }
+        
+         return response()->json($estad->estado);
     }
 
 

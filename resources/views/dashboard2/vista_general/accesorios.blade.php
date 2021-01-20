@@ -186,7 +186,8 @@
                     <label >Stock Disponible:{{$item->cantidad}}</label><input type="hidden" for="" name="detalle" Value="{{$item->cantidad}}"> <br>
 
            <input type="hidden" value="{{$item->id}}" name="id">
-                 
+           <input type="hidden" value="{{$item->user_id}}" name="user">
+
                  
                   
                 </div>

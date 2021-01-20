@@ -17,7 +17,7 @@ class TransaccionesController extends Controller
   //);
   
       Venta::create(['product_id'=> $request->id
-      ,'comprador_id' => auth()->user()->id, 'total'=>$request->precio ]);
+      ,'comprador_id' => auth()->user()->id, 'total'=>$request->precio ,'vendedor_id'=>$request->user]);
       DB::table('products')->where('id','=',$request->id)->decrement('cantidad');
 
       return back()->with('status','Venta  Registrada!');
