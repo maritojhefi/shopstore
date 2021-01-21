@@ -37,6 +37,9 @@
                 COMPRADOR
             </td>
             <td>
+              VENDEDOR
+          </td>
+            <td>
               ESTADO
           </td>
            
@@ -68,6 +71,9 @@
                       <td>
                         {{ $comprador->find($venta->comprador_id)->name }}
                     </td>
+                    <td>
+                      {{ $comprador->find($venta->vendedor_id)->name }}
+                  </td>
                     <td>
                   
                       <a href="" data-id="{{$venta->id}}" data="{{$venta->comprador_id}}" class="approved btn btn-{{$venta->estado=='pendiente'? "warning": "success"}} btn-sm  btn-round" data-toggle="modal" data-target="#confirmarestado">{{$venta->estado}}</a>

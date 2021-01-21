@@ -34,6 +34,10 @@ Route::post('dashboard/comprar','dashboard\TransaccionesController@comprar')->na
 Route::post('dashboard/producto/rechazado','dashboard\ProductController@rechazado')->name('comentrechazado');
 Route::get('dashboard/ventas','dashboard\ProductController@ventas')->name('ventas.contador');
 Route::post('dashboard/venta/cambiarestado/{estad}','dashboard\ProductController@cambiarestado');
+Route::get('dashboard/coments/{product}','dashboard\ProductController@comments')->name('producto.comments');
+Route::get('dashboard/respuesta','dashboard\ProductController@respondercoment')->name('respondercoment');
+Route::get('dashboard/historial','dashboard\ProductController@historialcomprados')->name('comprados');
+Route::get('dashboard/contador/pagados','dashboard\ProductController@pagados')->name('pagados');
 
 
 

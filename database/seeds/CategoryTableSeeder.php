@@ -14,28 +14,28 @@ class CategoryTableSeeder extends Seeder
     {
         Categoria::truncate();
         Categoria::create([
-            'nombre'=>"Zapatillas",
-            'detalle'=>"Para hombre y mujer",
+            'nombre'=>"Vestidos",
+            'detalle'=>"Para mujer",
            
         ]);
         Categoria::create([
-           'nombre'=>"Sandalias",
-           'detalle'=>"Solo para damas",
+           'nombre'=>"Camperas",
+           'detalle'=>"Unisex",
           
        ]);
       
        Categoria::create([
-        'nombre'=>"Zapatos",
+        'nombre'=>"Remeras",
         'detalle'=>"Para hombre y mujer",
        
     ]);
     Categoria::create([
-        'nombre'=>"Tacones",
-        'detalle'=>"Solo para damas",
+        'nombre'=>"Pantalones",
+        'detalle'=>"Para hombre y mujer",
        
     ]);
     Categoria::create([
-        'nombre'=>"Mocasines",
+        'nombre'=>"Camisas",
         'detalle'=>"Solo para varones",
        
     ]);

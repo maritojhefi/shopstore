@@ -161,7 +161,8 @@
           @if ($producto->estado=="aprobado" ||$producto->estado=="concesionado")
           <td>
             <a href="{{route('producto.show',$producto->id)}}" class="btn btn-primary btn-sm  btn-round"><i class="material-icons">visibility</i></a>
-          
+            <a href="{{route('producto.comments',$producto->id)}}" class="btn btn-warning btn-sm  btn-round"><i class="material-icons">question_answer</i></a>
+
           </td>
           
           @else
