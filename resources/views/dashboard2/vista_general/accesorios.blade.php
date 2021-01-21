@@ -57,9 +57,17 @@
           <span class="sr-only">Next</span>
         </a>
       </div>
+@if ( $cantidad)
+<div class="alert alert-info" role="alert">
+  Existen :{{$cantidad}} registros encontrados
+</div>
 
-      <div class="row">
+@endif
+     
+      
 
+      
+<div class="row">
         @foreach ($productos as $item)
         <div class="col-lg-4 col-md-6 mb-4">
           <div class="card h-100">

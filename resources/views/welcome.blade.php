@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>ShopStore</title>
+        <title>ERM-SHOP</title>
 
         <!-- Fonts -->
     <link href="{{asset('css/shop-homepage.css')}}" rel="stylesheet">

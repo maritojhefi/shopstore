@@ -35,7 +35,7 @@ Route::post('dashboard/producto/rechazado','dashboard\ProductController@rechazad
 Route::get('dashboard/ventas','dashboard\ProductController@ventas')->name('ventas.contador');
 Route::post('dashboard/venta/cambiarestado/{estad}','dashboard\ProductController@cambiarestado');
 Route::get('dashboard/coments/{product}','dashboard\ProductController@comments')->name('producto.comments');
-Route::get('dashboard/respuesta','dashboard\ProductController@respondercoment')->name('respondercoment');
+Route::post('dashboard/respuesta','dashboard\ProductController@respondercoment')->name('respondercoment');
 Route::get('dashboard/historial','dashboard\ProductController@historialcomprados')->name('comprados');
 Route::get('dashboard/contador/pagados','dashboard\ProductController@pagados')->name('pagados');
 
@@ -46,9 +46,8 @@ Route::resource('dashboard2/usuario','dashboard\UserController');
 Route::resource('dashboard2/producto','dashboard\ProductController');
 
 
-Route::get('principal',function () {
-    return view('dashboard2/vista_general/accesorios');
-});
-Route::get('principal/filtro', 'dashboard\ProductController@index2')->name('producto.index2');
+
+
+Route::get('principal/filtro', 'dashboard\TransaccionesController@index2')->name('producto.index2');
 Route::post('verificar','AjaxControler@verificarCorreo')->name('verificar');
 

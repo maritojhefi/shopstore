@@ -20,18 +20,30 @@ class LandingPageController extends Controller
         $productos=DB::table('products')->where('estado','=','concesionado')->orwhere('estado','=','aprobado')->paginate(10);
       $categorias =DB::table('categorias')->get();
      $productimages=DB::table('product_images')->get();
-    
+    $cantidad=null;
          return view('dashboard2.vista_general.accesorios',
-         ['productos'=>$productos,
+         
+         ['cantidad'=>$cantidad,
+         'productos'=>$productos,
          'categorias'=>$categorias, 
          'imagenes'=> $productimages,
          'subcategorias'=>$subcategorias]);
     }
 
     public function indexPersonalizado(Request $request, Categoria $categoria){
+      
         $categorias =DB::table('categorias')->get();
      $productimages=DB::table('product_images')->get();
-        $productos=Product::where('category_id','=',$categoria->id)->where('estado','=','concesionado')->orwhere('estado','=','aprobado')->paginate(10);
-        return view('dashboard2.vista_general.accesorios',['productos'=>$productos,'categorias'=>$categorias,'imagenes'=> $productimages]);
+   
+        $productos=Product::where([
+            ['category_id','=',$categoria->id],
+            ['estado', '=', 'aprobado'],
+        ])->orWhere([
+            ['category_id','=',$categoria->id],
+            ['estado', '=', 'concesionado'],
+        ])->paginate(10);
+        
+        $cantidad=$productos->count();
+        return view('dashboard2.vista_general.accesorios',['cantidad'=>$cantidad,'productos'=>$productos,'categorias'=>$categorias,'imagenes'=> $productimages]);
     }
 }
